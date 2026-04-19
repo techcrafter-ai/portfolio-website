@@ -9,9 +9,11 @@ import {
   Code2,
   Database,
   FolderGit2,
+  Globe,
   Layers3,
   Mail,
   MonitorSmartphone,
+  MoveUpRight,
   Sparkles,
   TerminalSquare,
 } from 'lucide-react'
@@ -125,13 +127,13 @@ const creatorTopics = ['Web dev tips', 'Project builds', 'Career advice']
 const contacts = [
   {
     label: 'Email',
-    value: 'hello@techcrafter.ai',
-    href: 'mailto:hello@techcrafter.ai',
+    value: 'sanjeev18kmaurya@gmail.com',
+    href: 'mailto:sanjeev18kmaurya@gmail.com',
     icon: Mail,
   },
   {
     label: 'LinkedIn',
-    value: 'linkedin.com/in/techcrafter',
+    value: 'linkedin.com/in/sanjeev-maurya-7b7a545b',
     href: 'www.linkedin.com/in/sanjeev-maurya-7b7a545b',
     icon: Briefcase,
   },
@@ -353,13 +355,19 @@ function App() {
                 <p className="text-sm uppercase tracking-[0.34em] text-zinc-500">Why teams hire me</p>
                 <div className="mt-6 space-y-5 text-zinc-300">
                   <p className="mt-5 text-base leading-8 text-zinc-400">
-                    I started my journey as a developer over a decade ago, working on real-world enterprise systems and gradually moving into technical leadership roles.
-
-                    Over the years, I’ve built scalable applications across .NET, cloud platforms, and modern frontend frameworks, focusing not just on writing code but designing systems that last.
-
-                    Today, I combine engineering with content creation through TechCrafter, where I share practical insights, real-world projects, and lessons to help developers grow faster.
+                    I started my journey as a developer over a decade ago, working on real-world
+                    enterprise systems and gradually moving into technical leadership roles.
                   </p>
-
+                  <p className="text-base leading-8 text-zinc-400">
+                    Over the years, I&apos;ve built scalable applications across .NET, cloud platforms,
+                    and modern frontend frameworks, focusing not just on writing code but designing
+                    systems that last.
+                  </p>
+                  <p className="text-base leading-8 text-zinc-400">
+                    Today, I combine engineering with content creation through TechCrafter, where I
+                    share practical insights, real-world projects, and lessons to help developers
+                    grow faster.
+                  </p>
                 </div>
               </motion.div>
 
@@ -429,39 +437,82 @@ function App() {
               copy="Each project card is framed like a premium case study preview, with clear outcomes and modern visual treatment."
             />
 
-            {projects.map((project, index) => (
-              <div key={index} className="border p-6 rounded-xl">
+            <div className="grid gap-5 lg:grid-cols-2">
+              {projects.map((project, index) => (
+                <motion.article
+                  key={project.title}
+                  custom={index}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, amount: 0.2 }}
+                  variants={fadeUp}
+                  className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.06] p-7 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.09]"
+                >
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.1),transparent_30%)] opacity-0 transition duration-300 group-hover:opacity-100" />
 
-                <h3 className="text-xl font-bold">{project.title}</h3>
+                  <div className="relative flex h-full flex-col">
+                    <div className="flex items-start justify-between gap-6">
+                      <div className="space-y-3">
+                        <p className="text-xs font-semibold uppercase tracking-[0.34em] text-zinc-500">
+                          Featured project
+                        </p>
+                        <h3 className="text-2xl font-semibold text-white">{project.title}</h3>
+                      </div>
 
-                <p className="text-gray-400 mt-2">
-                  {project.description}
-                </p>
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-black/30">
+                        <MoveUpRight className="h-5 w-5 text-zinc-200 transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                      </div>
+                    </div>
 
-                {/* ✅ Highlights */}
-                <div className="mt-4 space-y-2">
-                  {project.highlights.map((item) => (
-                    <p key={item}>✅ {item}</p>
-                  ))}
-                </div>
+                    <p className="mt-5 text-sm leading-7 text-zinc-400 md:text-base">
+                      {project.description}
+                    </p>
 
-                {/* ✅ Tech */}
-                <div className="mt-4 flex gap-2 flex-wrap">
-                  {project.tech.map((tech) => (
-                    <span key={tech} className="border px-2 py-1 text-sm">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+                    <div className="mt-6 grid gap-3">
+                      {project.highlights.map((item) => (
+                        <div
+                          key={item}
+                          className="flex items-center gap-3 rounded-2xl border border-white/10 bg-black/20 px-4 py-3"
+                        >
+                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-400/12 text-emerald-200">
+                            <BadgeCheck className="h-4 w-4" />
+                          </div>
+                          <p className="text-sm text-zinc-300">{item}</p>
+                        </div>
+                      ))}
+                    </div>
 
-                {/* ✅ Buttons */}
-                <div className="mt-4 flex gap-4">
-                  <a href={project.demo}>Live Demo</a>
-                  <a href={project.github}>GitHub</a>
-                </div>
+                    <div className="mt-6 flex flex-wrap gap-2">
+                      {project.tech.map((tech) => (
+                        <span
+                          key={tech}
+                          className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium tracking-wide text-zinc-200"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
 
-              </div>
-            ))}
+                    <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                      <a
+                        href={project.demo}
+                        className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition hover:bg-zinc-100"
+                      >
+                        Live Demo
+                        <Globe className="h-4 w-4" />
+                      </a>
+                      <a
+                        href={project.github}
+                        className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/20 hover:bg-white/10"
+                      >
+                        GitHub Repo
+                        <FolderGit2 className="h-4 w-4" />
+                      </a>
+                    </div>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
           </section>
 
           <section className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
@@ -539,14 +590,15 @@ function App() {
                 🚀 Available for senior roles & consulting
               </h3>
 
-              <p className="mt-4 text-zinc-400 max-w-2xl">
-                If you're building scalable products, modernizing systems, or need a strong technical lead — let's connect.
+              <p className="mt-4 max-w-2xl text-zinc-400">
+                If you&apos;re building scalable products, modernizing systems, or need a strong
+                technical lead, let&apos;s connect.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-4">
                 <a
-                  href="mailto:hello@techcrafter.ai"
-                  className="rounded-full bg-white px-6 py-3 text-black font-semibold"
+                  href="mailto:sanjeev18kmaurya@gmail.com"
+                  className="rounded-full bg-white px-6 py-3 font-semibold text-black"
                 >
                   Email Me
                 </a>
@@ -578,17 +630,18 @@ function App() {
                     <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-black/30">
                       <Icon className="h-5 w-5 text-white" />
                     </div>
-                    <p className="mt-5 text-sm uppercase tracking-[0.28em] text-zinc-500">{contact.label}</p>
+                    <p className="mt-5 text-sm uppercase tracking-[0.28em] text-zinc-500">
+                      {contact.label}
+                    </p>
                     <p className="mt-3 break-all text-base text-zinc-200">{contact.value}</p>
                   </motion.a>
                 )
               })}
             </div>
-            <p className="text-center text-sm text-zinc-500 mt-10">
+            <p className="mt-10 text-center text-sm text-zinc-500">
               Trusted by teams building scalable web and cloud applications.
             </p>
           </section>
-
         </main>
 
         <footer className="mt-24 border-t border-white/10 py-8">
